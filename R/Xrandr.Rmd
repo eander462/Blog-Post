@@ -1,0 +1,32 @@
+---
+title: "Xrandr Blog Post"
+author: "Erik Andersen"
+date: '2022-05-11'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+  github_document: defualt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      error = FALSE,
+                      cache = TRUE,
+                      eval = FALSE)
+```
+
+## Intro
+
+This blog is going to focus on the important issues. You know, the real down to earth stuff that affects everyone. And not just first world issues either, we will practice inclusiveness. To demonstrate my commitment, this first post will be all about making sure your dual monitor setup runs smoothly when you switch to linux. 
+
+If you're anything like me (and I assume you are), you took a machine learning class in college, and realized windows doesn't let you run code in parallel as UNIX based systems, so you *very* sneakily convinced you dad you needed a new 500 GB ssd to dual boot linux on. Then as soon as you booted it up, the OS decided that your secondary monitor should really be the main one: *very* frustrating. Power user that you are (you swapped to linux after all), you used all of your skills built up from years of using windows, booted up the [Nvidia menu](https://forum.manjaro.org/t/how-do-you-use-nvidia-x-server-settings-exactly/96678), toggled the switch that swaps your default monitor, then calmly went about your business. Now your monitors were working perfectly, and you were all ready to be a new linux hacker until... you restarted your computer and it swapped back. This was when you first learned that in linux many settings aren't persistent like they are on windows, and *gasp* this is a feature!
+
+I have two goals for this post. Nominally, it is about how to use Nvidia settings correctly on Ubuntu 20.04 and above, but the more important message I hope to convey is how to how to go about trouble shooting a linux system when you first come from windows. There is extensive documentation on just about everything you can do on a linux system online, but for a brand new user, its not very helpful. You have to know what you want to do, how to look it up, and then what to do with that knowledge. In the long-run this will be a much more useful skill than knowing the [xrandr](https://www.x.org/releases/X11R7.5/doc/man/man1/xrandr.1.html) command is the correct one to swap your display settings. Next time, you (and I) won't have my blog post available with the perfect answer available^[I definitely will be SEO boosting this thing, so it will appear over Stack overflow for anyone trying to solve this issue], so knowing the basics of how to problem solve in linux will be necessary. Hadley Wickham preaches having a [scientific mindset](https://adv-r.hadley.nz/introduction.html#meta-techniques) when doing data science; you should do the same when working in linux.
+
+I don't want to be accused on my very first blog post of being on of those cooking blogs where they bury the recipe after their whole life story (ignore the three paragraphs above), so I will skip to the punchline and start out telling you the commands to make your monitors work correctly. 
+
+
+
+
