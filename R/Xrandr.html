@@ -11,7 +11,6 @@
 
 <meta name="author" content="Erik Andersen" />
 
-<meta name="date" content="2022-05-11" />
 
 <title>Xrandr Blog Post</title>
 
@@ -1512,7 +1511,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Xrandr Blog Post</h1>
 <h4 class="author">Erik Andersen</h4>
-<h4 class="date">2022-05-11</h4>
+<h4 class="date">11 May, 2022</h4>
 
 </div>
 
@@ -1546,11 +1545,11 @@ extensive documentation on just about everything you can do on a linux
 system online, but for a brand new user, its not very helpful. You have
 to know what you want to do, how to look it up, and then what to do with
 that knowledge. In the long-run this will be a much more useful skill
-than knowing the <a href="https://www.x.org/releases/X11R7.5/doc/man/man1/xrandr.1.html">xrandr</a>
-command is the correct one to swap your display settings. Next time, you
-(and I) won’t have my blog post available with the perfect answer
-available<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, so knowing the basics of how to problem
-solve in linux will be necessary. Hadley Wickham preaches having a <a href="https://adv-r.hadley.nz/introduction.html#meta-techniques">scientific
+than knowing the <a href="https://www.x.org/releases/X11R7.5/doc/man/man1/xrandr.1.html">xrandr</a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> command is
+the correct one to swap your display settings. Next time, you (and I)
+won’t have my blog post available with the perfect answer available<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, so
+knowing the basics of how to problem solve in linux will be necessary.
+Hadley Wickham preaches having a <a href="https://adv-r.hadley.nz/introduction.html#meta-techniques">scientific
 mindset</a> when doing data science; you should do the same when working
 in linux.</p>
 <div id="solution" class="section level3">
@@ -1559,16 +1558,123 @@ in linux.</p>
 those cooking blogs where they bury the recipe after their whole life
 story (ignore the three paragraphs above), so I will skip to the
 punchline and start out telling you the commands to make your monitors
-work correctly<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+work correctly.</p>
+<p>The command we’ll be using is <strong>xrandr</strong>. Xrandr stands
+for <em>resize, rotate, and reflect extension</em>. This is a powerful
+command that lets you tinker with pretty much any setting you could
+think of for your monitors. Let’s look at the output first to see what
+we’re dealing with.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<pre class="bash"><code>xrandr -q</code></pre>
+<pre><code>## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
+## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
+##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
+##    1680x1050    119.99    59.95  
+##    1440x900     119.85    59.89  
+##    1280x1024    119.96    75.02    60.02  
+##    1280x720      59.94    50.00  
+##    1024x768      75.03    70.07    60.00  
+##    800x600       75.00    72.19    60.32    56.25  
+##    720x576       50.00  
+##    720x480       59.94  
+##    640x480       75.00    72.81    59.94    59.93  
+## DP-1 disconnected (normal left inverted right x axis y axis)
+## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
+##    1920x1080     60.00*+  59.94    50.00  
+##    1280x1024     75.02    60.02  
+##    1280x720      60.00    59.94    50.00  
+##    1152x864      75.00  
+##    1024x768      75.03    60.00  
+##    800x600       75.00    60.32  
+##    720x576       50.00  
+##    720x480       59.94  
+##    640x480       75.00    59.94    59.93  
+## DP-2 disconnected (normal left inverted right x axis y axis)
+## DP-3 disconnected (normal left inverted right x axis y axis)
+## DP-4 disconnected (normal left inverted right x axis y axis)
+## DP-5 disconnected (normal left inverted right x axis y axis)
+## USB-C-0 disconnected (normal left inverted right x axis y axis)</code></pre>
+<p>It looks confusing, but don’t worry, there’s only one bit of
+information we need from here: the monitor names.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The monitor names are
+the strings on the left called DP-0 or HDMI-0. I have a lot of options,
+but only those two are connected. As you can see my HDMI-0 is the
+primary monitor, which is wrong. I want it to be DP-0. To switch it I
+run the following command.</p>
+<pre class="bash"><code>xrandr --output DP-0 --primary</code></pre>
+<pre><code>## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
+## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
+##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
+##    1680x1050    119.99    59.95  
+##    1440x900     119.85    59.89  
+##    1280x1024    119.96    75.02    60.02  
+##    1280x720      59.94    50.00  
+##    1024x768      75.03    70.07    60.00  
+##    800x600       75.00    72.19    60.32    56.25  
+##    720x576       50.00  
+##    720x480       59.94  
+##    640x480       75.00    72.81    59.94    59.93  
+## DP-1 disconnected (normal left inverted right x axis y axis)
+## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
+##    1920x1080     60.00*+  59.94    50.00  
+##    1280x1024     75.02    60.02  
+##    1280x720      60.00    59.94    50.00  
+##    1152x864      75.00  
+##    1024x768      75.03    60.00  
+##    800x600       75.00    60.32  
+##    720x576       50.00  
+##    720x480       59.94  
+##    640x480       75.00    59.94    59.93  
+## DP-2 disconnected (normal left inverted right x axis y axis)
+## DP-3 disconnected (normal left inverted right x axis y axis)
+## DP-4 disconnected (normal left inverted right x axis y axis)
+## DP-5 disconnected (normal left inverted right x axis y axis)
+## USB-C-0 disconnected (normal left inverted right x axis y axis)</code></pre>
+<p>It swapped! For many of you, this is all the info you need, but for
+beginning linux users (like me mostly), this still isn’t perfect. We
+know how to swap the primary monitor, but we still have to run this
+script on everytime on start up. There are a number of this to try that
+I’ll discuss later on, but to start out with I’ll show you the option I
+settled for. We’re going to make our command into a script, then put
+that script in our <strong><a href="https://www.journaldev.com/41479/bashrc-file-in-linux">.bashrc</a></strong>
+file.</p>
+<p>We could just put the command direclty into the .bashrc file, which
+would probably be fine since it’s only a single line, but it is better
+practice<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+to make script files, then have .bashrc call the scripts. So, let’s make
+the script.</p>
+<p>We’ll start by creating a text file that contains the command from
+above.</p>
+<pre class="bash"><code># Go to the demonstration directory
+
+cd ~/Documents/EC510/Projects/Blog-Post/playground
+
+# This line assigns assigns the command from above to the file monitor.txt. I have to echo it and put it in quotes, or bash will put the output from the command into the text file. 
+
+echo &quot;xrandr --output DP-0 --primary&quot; &gt; monitor.txt
+
+# Now we print the text file to the screen to check it worked
+
+cat monitor.txt</code></pre>
+<pre><code>## xrandr --output DP-0 --primary</code></pre>
+<p>Great! Now we have a text file containing our command, but its not
+exacutable yet, so it won’t work. We have to work with linux file
+permissions to make it work.</p>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>I definitely will be SEO boosting this thing, so it will
-appear over Stack overflow for anyone trying to solve this issue<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>This should work no what brand graphics card/integrated
-graphics you’re using<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Note: Since the first draft, I have found a different
+(possibly easier) way to solve this for Nvidia cards. The solution is
+linked <a href="https://askubuntu.com/questions/379483/nvidia-x-server-settings-lost-on-every-reboot">here</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>I definitely will be SEO boosting this thing, so it will
+appear over Stack overflow for anyone trying to solve this issue<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>I don’t think there’s any vulnerable info here from my
+pc, but if there is please don’t hack me<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>You can also use the following command to extract the
+names directly, but I find regular expressions a bit confusing, so I
+currently prefer to do it manually. xrandr | grep -e ” connected [^(]” |
+sed -e “s/\([A-Z0-9]\+) connected.*/\1/”<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Source my dad, a 60 year old senior dev.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
