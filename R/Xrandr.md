@@ -148,7 +148,7 @@ ls -lh
 
 ```
 ## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 14 14:57 monitor.txt
+## -rwxrwxrwx 1 eander462 eander462 31 May 14 15:03 monitor.txt
 ```
 
 The permissions are the first thing shown in the second line after the ##. So, our fancy monitor.txt file has permissions -rw-rw-r--^[Why are the rw's repeated three times? well it has to do with [user groups](https://www.redhat.com/sysadmin/manage-permissions). There are three levels of permissions, each can be uniquely given access to a combination of read, write and execute. This isn't important for our purposes here, since this is a harmless command, and we will just give everyone full permission]. Very impressive! To make it run, we are going to have to give execution permission to the file. We'll do that with the **[chmod](http://manpages.ubuntu.com/manpages/trusty/man1/chmod.1.html)** command. There are two ways of telling the command what permissions we want to give, but this is the spark notes version, so see one of the links in this paragraph for more information; all we need to know is that to give every type of user full permission, we use the following command. 
@@ -170,7 +170,7 @@ ls -lh
 
 ```
 ## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 14 14:57 monitor.txt
+## -rwxrwxrwx 1 eander462 eander462 31 May 14 15:03 monitor.txt
 ```
 
 And now we've successfully hacked (read done a simple, standard operation) linux. There's just one more step to get this bad boy running: we need to put it in our .bashrc file, so it executes when we start up our terminal on first boot. 
@@ -188,7 +188,13 @@ cd ../playground
 echo "monitor.txt" >> .bashrc
 ```
 
-And we're done! Now when you first run your terminal on start up, the monitor.txt program will run and set up your monitors correctly. 
+And we're done! Now when you first run your terminal on start up, the monitor.txt program will run and set up your monitors correctly. This may have seemed like a lot, there we're really just three steps, and remembering how to get a script to run when you boot up your computer is a powerful tool, and will set you well on your way to be a cool linux hacker. 
+
+This isn't the end of the blog. It would be the end of most blogs, but I'm usually left with a feeling that blog writings just know how to do everything, and don't struggle to figure out the complex topics their blogs deal with. I don't want that to be the case here. I was entirely new to linux when I tried to make my monitors work correctly, and it took me three days to work out how to run the few basic steps I've described. In the rest of this post, I want to show you to process of troubleshooting and discovery of the solution. I hope it will be helpful in soving the next issue that comes up.
+
+### But wait! How did you figure that out?
+
+
 
 
 
