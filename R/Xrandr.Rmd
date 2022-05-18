@@ -117,7 +117,7 @@ echo "monitor.txt" >> .bashrc
 
 And we're done! Now when you first run your terminal on start up, the monitor.txt program will run and set up your monitors correctly. This may have seemed like a lot, there we're really just three steps, and remembering how to get a script to run when you boot up your computer is a powerful tool, and will set you well on your way to be a cool linux hacker. 
 
-This isn't the end of the blog. It would be the end of most blogs, but I'm usually left with a feeling that blog writings just know how to do everything, and don't struggle to figure out the complex topics their blogs deal with. I don't want that to be the case here. I was entirely new to linux when I tried to make my monitors work correctly, and it took me three days to work out how to run the few basic steps I've described. In the rest of this post, I want to show you to process of troubleshooting and discovery of the solution. I hope it will be helpful in soving the next issue that comes up.
+This isn't the end of the blog. It would be the end of most blogs, but I'm usually left with a feeling that blog writings just know how to do everything, and don't struggle to figure out the complex topics their blogs deal with. I don't want that to be the case here. I was entirely new to linux when I tried to make my monitors work correctly, and it took me three days to work out how to run the few basic steps I've described. In the rest of this post, I want to show you to process of troubleshooting and discovery of the solution. I hope it will be helpful in solving the next issue that comes up.
 
 ### But wait! How did you figure that out?
 
