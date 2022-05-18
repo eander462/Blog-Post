@@ -32,37 +32,6 @@ The command we'll be using is **xrandr**. Xrandr stands for *resize, rotate, and
 xrandr -q
 ```
 
-```
-## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
-## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
-##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
-##    1680x1050    119.99    59.95  
-##    1440x900     119.85    59.89  
-##    1280x1024    119.96    75.02    60.02  
-##    1280x720      59.94    50.00  
-##    1024x768      75.03    70.07    60.00  
-##    800x600       75.00    72.19    60.32    56.25  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    72.81    59.94    59.93  
-## DP-1 disconnected (normal left inverted right x axis y axis)
-## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
-##    1920x1080     60.00*+  59.94    50.00  
-##    1280x1024     75.02    60.02  
-##    1280x720      60.00    59.94    50.00  
-##    1152x864      75.00  
-##    1024x768      75.03    60.00  
-##    800x600       75.00    60.32  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    59.94    59.93  
-## DP-2 disconnected (normal left inverted right x axis y axis)
-## DP-3 disconnected (normal left inverted right x axis y axis)
-## DP-4 disconnected (normal left inverted right x axis y axis)
-## DP-5 disconnected (normal left inverted right x axis y axis)
-## USB-C-0 disconnected (normal left inverted right x axis y axis)
-```
-
 It looks confusing, but don't worry, there's only one bit of information we need from here: the monitor names.^[You can also use the following command to extract the names directly, but I find regular expressions a bit confusing, so I currently prefer to do it manually. xrandr | grep -e " connected [^(]" | sed -e "s/\\([A-Z0-9]\\+) connected.*/\1/"] The monitor names are the strings on the left called DP-0 or HDMI-0. I have a lot of options, but only those two are connected. As you can see my HDMI-0 is the primary monitor, which is wrong. I want it to be DP-0. To switch it I run the following command.
 
 
@@ -71,36 +40,6 @@ xrandr --output DP-0 --primary
 ```
 
 
-```
-## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
-## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
-##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
-##    1680x1050    119.99    59.95  
-##    1440x900     119.85    59.89  
-##    1280x1024    119.96    75.02    60.02  
-##    1280x720      59.94    50.00  
-##    1024x768      75.03    70.07    60.00  
-##    800x600       75.00    72.19    60.32    56.25  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    72.81    59.94    59.93  
-## DP-1 disconnected (normal left inverted right x axis y axis)
-## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
-##    1920x1080     60.00*+  59.94    50.00  
-##    1280x1024     75.02    60.02  
-##    1280x720      60.00    59.94    50.00  
-##    1152x864      75.00  
-##    1024x768      75.03    60.00  
-##    800x600       75.00    60.32  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    59.94    59.93  
-## DP-2 disconnected (normal left inverted right x axis y axis)
-## DP-3 disconnected (normal left inverted right x axis y axis)
-## DP-4 disconnected (normal left inverted right x axis y axis)
-## DP-5 disconnected (normal left inverted right x axis y axis)
-## USB-C-0 disconnected (normal left inverted right x axis y axis)
-```
 
 It swapped! For many of you, this is all the info you need, but for beginning linux users (like me mostly), this still isn't perfect. We know how to swap the primary monitor, but we still have to run this script on every time on start up. There are a number of this to try that I'll discuss later on, but to start out with I'll show you the option I settled for. We're going to make our command into a script, then put that script in our **[.bashrc](https://www.journaldev.com/41479/bashrc-file-in-linux)** file.
 
@@ -127,10 +66,6 @@ cat monitor.txt
 # Note, you can just edit a text file directly with vim or nano, but this lets me show the whole process without making a gif.
 ```
 
-```
-## xrandr --output DP-0 --primary
-```
-
 Great! Now we have a text file^[Fun fact about linux, [file extensions](https://medium.com/@smohajer85/file-extensions-in-linux-c619690941c4) don't *usually* matter. We could have named our file monitor.png, and it would still work exactly the same except for in a few edge cases. It is good practice to give your file a logical extension name though to avoid confusion.] containing our command, but its not executable yet, so it won't work. We have to work with linux file permissions^[I recommend chapter 9 of [this](https://nostarch.com/tlcl2) book for a good explanation of how the linux permissions system works if you are curious to learn more.] to make it work. I won't go in depth here, but the spark notes versions should be enough for out purposes here. 
 
 So what are file permissions? Simply, they are a way for the computer to know who is allowed to do what. Linux systems were designed not with personal computers in mind, but rather large centralized computers accessed by many people all the time. The file permission system lets this work without users being able to ruin the whole system for each other. There are three types of access a file can have: read, write, and execute shown by the r, w, and x below.
@@ -144,11 +79,6 @@ cd ../playground
 # The permissions are shown on the left. They look like -rw-rw-r--
 
 ls -lh
-```
-
-```
-## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 18 13:51 monitor.txt
 ```
 
 The permissions are the first thing shown in the second line after the ##. So, our fancy monitor.txt file has permissions -rw-rw-r--^[Why are the rw's repeated three times? well it has to do with [user groups](https://www.redhat.com/sysadmin/manage-permissions). There are three levels of permissions, each can be uniquely given access to a combination of read, write and execute. This isn't important for our purposes here, since this is a harmless command, and we will just give everyone full permission]. Very impressive! To make it run, we are going to have to give execution permission to the file. We'll do that with the **[chmod](http://manpages.ubuntu.com/manpages/trusty/man1/chmod.1.html)** command. There are two ways of telling the command what permissions we want to give, but this is the spark notes version, so see one of the links in this paragraph for more information; all we need to know is that to give every type of user full permission, we use the following command. 
@@ -168,11 +98,6 @@ chmod 777 monitor.txt
 ls -lh 
 ```
 
-```
-## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 18 13:51 monitor.txt
-```
-
 And now we've successfully hacked (read done a simple, standard operation) linux. There's just one more step to get this bad boy running: we need to put it in our .bashrc file, so it executes when we start up our terminal on first boot. 
 
 
@@ -183,7 +108,7 @@ cd ../playground
 
 # Make sure to use >> instead of > like we did last time. This is VERY IMPORTANT. If you just use a single > it will over write your .bashrc file to only say monitor.txt which is definitely what you want.
 
-# Alternatively, you can just directly edit .bashrc using vim
+# Alternatively, you can just directly edit .bashrc using your preffered editor
 
 echo "monitor.txt" >> .bashrc
 ```
@@ -194,7 +119,7 @@ This isn't the end of the blog. It would be the end of most blogs, but I'm usual
 
 ### But wait! How did you figure that out?
 
-
+How do we start out troubleshooting a problem? Well my first instinct was to call my dad and hope he already knew the solution, but he hates talking on the phone, so this solution probably won't work for you. *Annoying*. Guess we'll have to use that scientific mindset I talked about earlier.^[I've only been a linux user for half a year, but I'm already much better at problem solving then I was at the start. This troubleshooting walk through is going to be at a very basic level, but for a good reason; this tutorial is aimed at past me who spent three days trying to learn linux from scratch and not knowing the most basic of things. A few of the methods I show are going to look dumb, but that is how I learned, so I hope it will be a good resource.]
 
 
 

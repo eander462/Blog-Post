@@ -19,6 +19,11 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## Intro
 
+```{r eval=FALSE, include=FALSE}
+# Note on reproducability: This code will only (as far as I know) run on linux systems (and I can only guarantee ubuntu). This is a blog post, so reproducabiity is not a big deal, but I'm working on incorporating best practices into my work. Hence this note.
+```
+
+
 This blog is going to focus on the important issues. You know, the real down to earth stuff that affects everyone. And not just first world issues either, we will practice inclusiveness. To demonstrate my commitment, this first post will be all about making sure your dual monitor setup runs smoothly when you switch to linux. 
 
 If you're anything like me (and I assume you are), you took a machine learning class in college, and realized windows doesn't let you run code in parallel as UNIX based systems, so you *very* sneakily convinced you dad you needed a new 500 GB ssd to dual boot linux on. Then as soon as you booted it up, the OS decided that your secondary monitor should really be the main one: *very* frustrating. Power user that you are (you swapped to linux after all), you used all of your skills built up from years of using windows, booted up the [Nvidia menu](https://forum.manjaro.org/t/how-do-you-use-nvidia-x-server-settings-exactly/96678), toggled the switch that swaps your default monitor, then calmly went about your business. Now your monitors were working perfectly, and you were all ready to be a new linux hacker until... you restarted your computer and it swapped back. This was when you first learned that in linux many settings aren't persistent like they are on windows, and *gasp* this is a [feature](https://stackoverflow.com/questions/15977171/why-when-i-restart-the-terminal-the-environment-variables-are-restarted)!
@@ -110,7 +115,7 @@ cd ../playground
 
 # Make sure to use >> instead of > like we did last time. This is VERY IMPORTANT. If you just use a single > it will over write your .bashrc file to only say monitor.txt which is definitely what you want.
 
-# Alternatively, you can just directly edit .bashrc using vim
+# Alternatively, you can just directly edit .bashrc using your preffered editor
 
 echo "monitor.txt" >> .bashrc
 ```
@@ -119,7 +124,39 @@ And we're done! Now when you first run your terminal on start up, the monitor.tx
 
 This isn't the end of the blog. It would be the end of most blogs, but I'm usually left with a feeling that blog writings just know how to do everything, and don't struggle to figure out the complex topics their blogs deal with. I don't want that to be the case here. I was entirely new to linux when I tried to make my monitors work correctly, and it took me three days to work out how to run the few basic steps I've described. In the rest of this post, I want to show you to process of troubleshooting and discovery of the solution. I hope it will be helpful in solving the next issue that comes up.
 
-### But wait! How did you figure that out?
+## But wait! How did you figure that out?
+
+How do we start out troubleshooting a problem? Well my first instinct was to call my dad and hope he already knew the solution, but he hates talking on the phone, so this solution probably won't work for you. *Annoying*. Guess we'll have to use that [scientific mindset](https://adv-r.hadley.nz/introduction.html#meta-techniques) I talked about earlier.^[I've only been a linux user for half a year, but I'm already much better at problem solving then I was at the start. This troubleshooting walk through is going to be at a very basic level, but for a good reason; this tutorial is aimed at past me who spent three days trying to learn linux from scratch and not knowing the most basic of things. A few of the methods I show are going to look dumb, but that is how I learned, so I hope it will be a good resource.]
+
+The first step to science (at least computer science) is always to google it. When I google "change primary monitor ubuntu", I get [this](https://askubuntu.com/questions/300670/is-there-any-ability-to-set-my-primary-monitor). Confusingly for a new linux user, not one of the responses give the correct answer, or even mentions using the command line. Coming from windows where you never interact with the terminal, moving away from the safe [gui](https://en.wikipedia.org/wiki/Graphical_user_interface) toggle switches to the scary maroon maze of the command line is a hurdle. I'll save you my pain, but it took a few hours of googling and trying their solutions to learn that I was going to need to use the terminal. 
+
+With the new found power of the command line we'll update the google: ["change primary monitor ubuntu command line"](https://superuser.com/questions/155004/switch-monitors-from-the-command-line). And there we go; the top answer is the solution I came to using xrandr. Excellent. At this point, I was spinning around in my chair celebrating, scaring my cats away, thinking I was done finally. I copied the command into my terminal^[Pro(ish) tip: ctrl-c, and ctrl-v don't work in the terminal because the terminal was build before windows ever created those commands. Instead use ctrl-shift-c/v or middle click to copy paste.], ran it and went on with my day. 
+
+Sadly, upon reboot my monitors swapped back and I despaired thinking I would have to type the xrandr command into my terminal every time I booted up the computer. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

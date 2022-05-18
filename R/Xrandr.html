@@ -1568,34 +1568,6 @@ command that lets you tinker with pretty much any setting you could
 think of for your monitors. Let’s look at the output first to see what
 we’re dealing with.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <pre class="bash"><code>xrandr -q</code></pre>
-<pre><code>## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
-## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
-##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
-##    1680x1050    119.99    59.95  
-##    1440x900     119.85    59.89  
-##    1280x1024    119.96    75.02    60.02  
-##    1280x720      59.94    50.00  
-##    1024x768      75.03    70.07    60.00  
-##    800x600       75.00    72.19    60.32    56.25  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    72.81    59.94    59.93  
-## DP-1 disconnected (normal left inverted right x axis y axis)
-## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
-##    1920x1080     60.00*+  59.94    50.00  
-##    1280x1024     75.02    60.02  
-##    1280x720      60.00    59.94    50.00  
-##    1152x864      75.00  
-##    1024x768      75.03    60.00  
-##    800x600       75.00    60.32  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    59.94    59.93  
-## DP-2 disconnected (normal left inverted right x axis y axis)
-## DP-3 disconnected (normal left inverted right x axis y axis)
-## DP-4 disconnected (normal left inverted right x axis y axis)
-## DP-5 disconnected (normal left inverted right x axis y axis)
-## USB-C-0 disconnected (normal left inverted right x axis y axis)</code></pre>
 <p>It looks confusing, but don’t worry, there’s only one bit of
 information we need from here: the monitor names.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> The monitor names are
 the strings on the left called DP-0 or HDMI-0. I have a lot of options,
@@ -1603,34 +1575,6 @@ but only those two are connected. As you can see my HDMI-0 is the
 primary monitor, which is wrong. I want it to be DP-0. To switch it I
 run the following command.</p>
 <pre class="bash"><code>xrandr --output DP-0 --primary</code></pre>
-<pre><code>## Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
-## DP-0 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 597mm x 336mm
-##    1920x1080     60.00 + 143.98*  119.98   119.93    59.94    50.00  
-##    1680x1050    119.99    59.95  
-##    1440x900     119.85    59.89  
-##    1280x1024    119.96    75.02    60.02  
-##    1280x720      59.94    50.00  
-##    1024x768      75.03    70.07    60.00  
-##    800x600       75.00    72.19    60.32    56.25  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    72.81    59.94    59.93  
-## DP-1 disconnected (normal left inverted right x axis y axis)
-## HDMI-0 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 598mm x 336mm
-##    1920x1080     60.00*+  59.94    50.00  
-##    1280x1024     75.02    60.02  
-##    1280x720      60.00    59.94    50.00  
-##    1152x864      75.00  
-##    1024x768      75.03    60.00  
-##    800x600       75.00    60.32  
-##    720x576       50.00  
-##    720x480       59.94  
-##    640x480       75.00    59.94    59.93  
-## DP-2 disconnected (normal left inverted right x axis y axis)
-## DP-3 disconnected (normal left inverted right x axis y axis)
-## DP-4 disconnected (normal left inverted right x axis y axis)
-## DP-5 disconnected (normal left inverted right x axis y axis)
-## USB-C-0 disconnected (normal left inverted right x axis y axis)</code></pre>
 <p>It swapped! For many of you, this is all the info you need, but for
 beginning linux users (like me mostly), this still isn’t perfect. We
 know how to swap the primary monitor, but we still have to run this
@@ -1662,7 +1606,6 @@ echo &quot;xrandr --output DP-0 --primary&quot; &gt; monitor.txt
 cat monitor.txt
 
 # Note, you can just edit a text file directly with vim or nano, but this lets me show the whole process without making a gif.</code></pre>
-<pre><code>## xrandr --output DP-0 --primary</code></pre>
 <p>Great! Now we have a text file<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> containing our command, but its not
 executable yet, so it won’t work. We have to work with linux file
 permissions<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> to make it work. I won’t go in depth here,
@@ -1681,8 +1624,6 @@ cd ../playground
 # The permissions are shown on the left. They look like -rw-rw-r--
 
 ls -lh</code></pre>
-<pre><code>## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 18 13:51 monitor.txt</code></pre>
 <p>The permissions are the first thing shown in the second line after
 the ##. So, our fancy monitor.txt file has permissions -rw-rw-r–<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>. Very
 impressive! To make it run, we are going to have to give execution
@@ -1703,8 +1644,6 @@ chmod 777 monitor.txt
 # See now the permissions give each user access to reading, writing, and executing
 
 ls -lh </code></pre>
-<pre><code>## total 4.0K
-## -rwxrwxrwx 1 eander462 eander462 31 May 18 13:51 monitor.txt</code></pre>
 <p>And now we’ve successfully hacked (read done a simple, standard
 operation) linux. There’s just one more step to get this bad boy
 running: we need to put it in our .bashrc file, so it executes when we
@@ -1715,7 +1654,7 @@ cd ../playground
 
 # Make sure to use &gt;&gt; instead of &gt; like we did last time. This is VERY IMPORTANT. If you just use a single &gt; it will over write your .bashrc file to only say monitor.txt which is definitely what you want.
 
-# Alternatively, you can just directly edit .bashrc using vim
+# Alternatively, you can just directly edit .bashrc using your preffered editor
 
 echo &quot;monitor.txt&quot; &gt;&gt; .bashrc</code></pre>
 <p>And we’re done! Now when you first run your terminal on start up, the
@@ -1736,6 +1675,11 @@ in solving the next issue that comes up.</p>
 </div>
 <div id="but-wait-how-did-you-figure-that-out" class="section level3">
 <h3>But wait! How did you figure that out?</h3>
+<p>How do we start out troubleshooting a problem? Well my first instinct
+was to call my dad and hope he already knew the solution, but he hates
+talking on the phone, so this solution probably won’t work for you.
+<em>Annoying</em>. Guess we’ll have to use that scientific mindset I
+talked about earlier.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">
@@ -1770,6 +1714,13 @@ groups</a>. There are three levels of permissions, each can be uniquely
 given access to a combination of read, write and execute. This isn’t
 important for our purposes here, since this is a harmless command, and
 we will just give everyone full permission<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>I’ve only been a linux user for half a year, but I’m
+already much better at problem solving then I was at the start. This
+troubleshooting walk through is going to be at a very basic level, but
+for a good reason; this tutorial is aimed at past me who spent three
+days trying to learn linux from scratch and not knowing the most basic
+of things. A few of the methods I show are going to look dumb, but that
+is how I learned, so I hope it will be a good resource.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
